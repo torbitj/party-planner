@@ -56,11 +56,19 @@ const PartyDetails = () => {
   const $figure = document.createElement(`figure`);
   const $pDate = document.createElement(`p`);
   const $pAddress = document.createElement(`address`);
+  const readableDate = new Date(date).toLocaleString(`en-US`, {
+    weekday: `long`,
+    year: `numeric`,
+    month: `long`,
+    day: `numeric`,
+    hour: `2-digit`,
+    minute: `2-digit`
+  });
 
   $h3.innerText = `${name}: ${id}`;
-  $pDescription = description;
-  $pDate = date;
-  $pAddress = location;
+  $pDescription.innerText = description;
+  $pDate.innerText = `Date: ${readableDate}`
+  $pAddress.innerText = location;
   $figure.append($h3, $pDescription, $pDate, $pAddress);
   
   return $figure;
@@ -82,6 +90,7 @@ const rendor = () => {
   </main>`;
 
   document.querySelector(`PartyList`).replaceWith(PartyList());
+  document.querySelector(`PartyDetails`).replaceWith(PartyDetails());
 }
 
 const init = async () => {
