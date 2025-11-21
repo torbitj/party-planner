@@ -50,7 +50,7 @@ const rendor = () => {
       <h2>Upcoming Parties</h2>
       <PartyList></PartyList>
     </section>
-    <section>
+    <section id="selected">
       <h2>Party Details</h2>
       <PartyDetails></PartyDetails>
     </section>
