@@ -5,7 +5,9 @@ const state = {
 const getPartyList = async () => {
   const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
   const response = await fetch(API);
-  console.log(response)
+  const eventsData = await response.json();
+  const retrievedPartylist = eventsData.data;
+  
 }
 
 const partyListItem = () => {
