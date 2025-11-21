@@ -1,6 +1,6 @@
 const state = {
   partyList: [],
-  selectedParty: null
+  selectedParty: null,
 }
 
 const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
@@ -9,7 +9,7 @@ const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/
 const getParty = async (id) => {
   const response = await fetch(`${API}/${id}`);
   const party = await response.json();
-  selectedParty = party.data;
+  state.selectedParty = party.data;
   rendor();
 }
 
@@ -27,6 +27,10 @@ const PartyListItem = (party) => {
   $a.innerText = `${party.name}`;
   $li.append($a);
 
+  if (state.selectedParty && state.selectedParty.id === party.id) {
+    $li.style.fontWeight = `bolder`;
+  }
+
   $li.addEventListener(`click`, (event) => {
     getParty(party.id);
   });
@@ -39,6 +43,38 @@ const PartyList = () => {
     $ul.append(PartyListItem(party))
   });
   return $ul;
+}
+
+
+const PartyDetails = () => {
+  if (!state.selectedParty) {
+    const $h3 = document.createElement(`h3`);
+    $h3.innerText = `Please select a party to see party details.`;
+    return $h3;
+  }
+
+  const { id, name, location, date, description } = state.selectedParty;
+  const $h3 = document.createElement(`h3`);
+  const $pDescription = document.createElement(`p`);
+  const $figure = document.createElement(`figure`);
+  const $pDate = document.createElement(`p`);
+  const $pAddress = document.createElement(`address`);
+  const readableDate = new Date(date).toLocaleString(`en-US`, {
+    weekday: `long`,
+    year: `numeric`,
+    month: `long`,
+    day: `numeric`,
+    hour: `2-digit`,
+    minute: `2-digit`
+  });
+
+  $h3.innerText = `${name}: ${id}`;
+  $pDescription.innerText = description;
+  $pDate.innerText = `Date: ${readableDate}`
+  $pAddress.innerText = `Address:\n${location}`;
+  $figure.append($h3, $pDescription, $pDate, $pAddress);
+
+  return $figure;
 }
 
 const rendor = () => {
@@ -57,6 +93,7 @@ const rendor = () => {
   </main>`;
 
   document.querySelector(`PartyList`).replaceWith(PartyList());
+  document.querySelector(`PartyDetails`).replaceWith(PartyDetails());
 }
 
 const init = async () => {
