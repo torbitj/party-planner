@@ -8,10 +8,20 @@ const getPartyList = async () => {
   const eventsData = await response.json();
   const retrievedPartylist = eventsData.data;
   state.partyList = retrievedPartylist;
+  console.log(state.partyList)
 }
 
-const partyListItem = () => {
-  // TODO
+const partyListItem = (party) => {
+  const $li = document.createElement(`li`);
+  const $a = document.createElement(`a`);
+  $a.href = `#selected`;
+  $a.innerText = `${party.name}`;
+  $li.append($a);
+
+  $li.addEventListener(`click`, (event) => {
+    getPartyList(party.id);
+  });
+  return $li;
 }
 
 const partyList = () => {
@@ -35,3 +45,4 @@ const rendor = () => {
 }
 
 rendor();
+getPartyList()
