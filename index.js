@@ -29,6 +29,7 @@ const PartyListItem = (party) => {
 
   if (state.selectedParty && state.selectedParty.id === party.id) {
     $li.style.fontWeight = `bolder`;
+    $li.style.boxShadow = `5px 5px 5px #214FBA`;
   }
 
   $li.addEventListener(`click`, (event) => {
