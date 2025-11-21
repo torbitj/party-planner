@@ -10,7 +10,7 @@ const getParty = async (id) => {
   const response = await fetch(`${API}/${id}`);
   const party = await response.json();
   selectedParty = party.data;
-  console.log(party);
+  rendor();
 }
 
 const getPartyList = async () => {
@@ -18,7 +18,6 @@ const getPartyList = async () => {
   const eventsData = await response.json();
   const retrievedPartylist = eventsData.data;
   state.partyList = retrievedPartylist;
-  // console.log(state.partyList)
 }
 
 const PartyListItem = (party) => {
@@ -56,6 +55,13 @@ const rendor = () => {
       <PartyDetails></PartyDetails>
     </section>
   </main>`;
+
+  document.querySelector(`PartyList`).replaceWith(PartyList());
 }
 
-rendor();
+const init = async () => {
+  await getPartyList();
+  rendor();
+}
+
+init();
