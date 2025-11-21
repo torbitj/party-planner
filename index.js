@@ -9,7 +9,8 @@ const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/
 const getParty = async (id) => {
   const response = await fetch(`${API}/${id}`);
   const party = await response.json();
-  selectedParty = party.data;
+  state.selectedParty = party.data;
+  console.log(state.selectedParty);
   rendor();
 }
 
@@ -39,6 +40,24 @@ const PartyList = () => {
     $ul.append(PartyListItem(party))
   });
   return $ul;
+}
+
+
+const PartyDetails = () => {
+  if (!state.selectedParty) {
+    const $h2 = document.createElement(`h2`);
+    $h2.innerText = `Please select a party to see party details.`;
+    return $h2;
+  }
+
+  const { id, name, location, date, description } = state.selectedParty;
+  const $h2 = document.createElement(`h2`);
+  const $pDescription = document.createElement(`p`);
+  const $figure = document.createElement(`figure`);
+  const $pDate = document.createElement(`p`);
+  const $pAddress = document.createElement(`p`);
+
+
 }
 
 const rendor = () => {
