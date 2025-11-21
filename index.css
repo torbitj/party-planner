@@ -3,3 +3,18 @@
   padding: 0;
 }
 
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-areas: 
+  ". div .";
+}
+
+div {
+  grid-area: div;
+}
+
+ul {
+  list-style: none;
+}
