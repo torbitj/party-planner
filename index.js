@@ -2,6 +2,10 @@ const state = {
   partyList: []
 }
 
+const getParty = async() = {
+  
+}
+
 const getPartyList = async () => {
   const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
   const response = await fetch(API);
@@ -11,7 +15,7 @@ const getPartyList = async () => {
   console.log(state.partyList)
 }
 
-const partyListItem = (party) => {
+const PartyListItem = (party) => {
   const $li = document.createElement(`li`);
   const $a = document.createElement(`a`);
   $a.href = `#selected`;
@@ -19,13 +23,17 @@ const partyListItem = (party) => {
   $li.append($a);
 
   $li.addEventListener(`click`, (event) => {
-    getPartyList(party.id);
+    getParty(party.id);
   });
   return $li;
 }
 
-const partyList = () => {
-  // TODO
+const PartyList = () => {
+  const $ul = document.createElement(`ul`);
+  state.partyList.forEach((party) => {
+    $ul.append(PartyListItem(party))
+  });
+  return $ul;
 }
 
 const rendor = () => {
