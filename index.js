@@ -1,6 +1,6 @@
 const state = {
   partyList: [],
-  selectedParty: null
+  selectedParty: null,
 }
 
 const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
@@ -10,7 +10,6 @@ const getParty = async (id) => {
   const response = await fetch(`${API}/${id}`);
   const party = await response.json();
   state.selectedParty = party.data;
-  console.log(state.selectedParty);
   rendor();
 }
 
@@ -27,6 +26,10 @@ const PartyListItem = (party) => {
   $a.href = `#selected`;
   $a.innerText = `${party.name}`;
   $li.append($a);
+
+  if (state.selectedParty && state.selectedParty.id === party.id) {
+    $li.style.fontWeight = `bolder`;
+  }
 
   $li.addEventListener(`click`, (event) => {
     getParty(party.id);
@@ -68,9 +71,9 @@ const PartyDetails = () => {
   $h3.innerText = `${name}: ${id}`;
   $pDescription.innerText = description;
   $pDate.innerText = `Date: ${readableDate}`
-  $pAddress.innerText = location;
+  $pAddress.innerText = `Address:\n${location}`;
   $figure.append($h3, $pDescription, $pDate, $pAddress);
-  
+
   return $figure;
 }
 
