@@ -1,18 +1,24 @@
 const state = {
-  partyList: []
+  partyList: [],
+  selectedParty: null
 }
 
-const getParty = async() = {
-  
+const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
+
+
+const getParty = async (id) => {
+  const response = await fetch(`${API}/${id}`);
+  const party = await response.json();
+  selectedParty = party.data;
+  console.log(party);
 }
 
 const getPartyList = async () => {
-  const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
   const response = await fetch(API);
   const eventsData = await response.json();
   const retrievedPartylist = eventsData.data;
   state.partyList = retrievedPartylist;
-  console.log(state.partyList)
+  // console.log(state.partyList)
 }
 
 const PartyListItem = (party) => {
@@ -53,4 +59,3 @@ const rendor = () => {
 }
 
 rendor();
-getPartyList()
