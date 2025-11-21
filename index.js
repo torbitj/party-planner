@@ -1,5 +1,5 @@
 const state = {
-  // TODO
+  partyList: []
 }
 
 const getPartyList = async () => {
@@ -7,7 +7,7 @@ const getPartyList = async () => {
   const response = await fetch(API);
   const eventsData = await response.json();
   const retrievedPartylist = eventsData.data;
-  
+  state.partyList = retrievedPartylist;
 }
 
 const partyListItem = () => {
@@ -35,4 +35,3 @@ const rendor = () => {
 }
 
 rendor();
-getPartyList()
