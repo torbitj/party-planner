@@ -45,19 +45,25 @@ const PartyList = () => {
 
 const PartyDetails = () => {
   if (!state.selectedParty) {
-    const $h2 = document.createElement(`h2`);
-    $h2.innerText = `Please select a party to see party details.`;
-    return $h2;
+    const $h3 = document.createElement(`h3`);
+    $h3.innerText = `Please select a party to see party details.`;
+    return $h3;
   }
 
   const { id, name, location, date, description } = state.selectedParty;
-  const $h2 = document.createElement(`h2`);
+  const $h3 = document.createElement(`h3`);
   const $pDescription = document.createElement(`p`);
   const $figure = document.createElement(`figure`);
   const $pDate = document.createElement(`p`);
-  const $pAddress = document.createElement(`p`);
+  const $pAddress = document.createElement(`address`);
 
-
+  $h3.innerText = `${name}: ${id}`;
+  $pDescription = description;
+  $pDate = date;
+  $pAddress = location;
+  $figure.append($h3, $pDescription, $pDate, $pAddress);
+  
+  return $figure;
 }
 
 const rendor = () => {
