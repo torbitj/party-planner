@@ -1,3 +1,11 @@
+const partyListItem = () => {
+  // TODO
+}
+
+const partyList = () => {
+  // TODO
+}
+
 const rendor = () => {
   const $app = document.querySelector(`#app`);
   $app.innerHTML = `
