@@ -12,7 +12,11 @@ body {
 }
 
 div {
+  display: grid;
   grid-area: div;
+  grid-template-rows: max-content;
+  row-gap: 3em;
+  align-items: start;
 }
 
 ul {
