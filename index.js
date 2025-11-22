@@ -1,6 +1,7 @@
 const state = {
   partyList: [],
-  selectedParty: null,
+  rsvpList: [],
+  selectedParty: null
 }
 
 const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT`;
@@ -35,6 +36,14 @@ const getPartyList = async () => {
   } catch (error) {
     alert(`Error in fetching the data`)
   }
+}
+
+const getRsvpList = async () => {
+  const response = await fetch(API + RSVPS);
+  const rsvpData = await response.json();
+  const rsvpList = rsvpData.data;
+  state.rsvpList = rsvpList;
+  console.log(state.rsvpList);
 }
 
 const PartyListItem = (party) => {
@@ -119,6 +128,7 @@ const rendor = () => {
 const init = async () => {
   try {
     await getPartyList();
+    await getRsvpList();
     rendor();
   } catch (error) {
     console.log(error)
