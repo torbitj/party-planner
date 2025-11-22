@@ -88,3 +88,13 @@ figure {
     row-gap: 1em;
   }
 }
+
+@media screen and (max-width: 480px) {
+  ul {
+    font-size: 1.1em;
+  }
+  
+  figure {
+    font-size: 1em;
+  }
+}
