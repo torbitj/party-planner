@@ -26,10 +26,21 @@ const getParty = async (id) => {
 }
 
 const getRsvps = async () => {
+  state.rsvpedGuests = [];
   const response = await fetch(API + GUESTS);
   const guestData = await response.json();
   const guests = guestData.data;
-  console.log(guests);
+  
+  for (let i = 0; i < guests.length; i++) {
+    const { id } = guests[i];
+    for (let j = 0; j < state.rsvpList.length; j++) {
+      const { guestId, eventId } = state.rsvpList[j];
+      if (id === guestId && state.selectedParty.id === eventId) {
+        state.rsvpedGuests.push(guests[i].name);
+      }
+    }
+  }
+  console.log(state.rsvpedGuests);
 }
 
 const getPartyList = async () => {
