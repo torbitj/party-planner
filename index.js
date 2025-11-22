@@ -40,7 +40,7 @@ const getRsvps = async () => {
       }
     }
   }
-  console.log(state.rsvpedGuests);
+  rendor();
 }
 
 const getPartyList = async () => {
@@ -62,7 +62,6 @@ const getRsvpList = async () => {
   const rsvpData = await response.json();
   const rsvpList = rsvpData.data;
   state.rsvpList = rsvpList;
-  console.log(state.rsvpList);
 }
 
 const PartyListItem = (party) => {
@@ -93,8 +92,15 @@ const PartyList = () => {
 }
 
 const RsvpList = () => {
+  console.log(state.rsvpedGuests)
   const $ul = document.createElement(`ul`);
-  
+  state.rsvpedGuests.forEach((guest) => {
+    const $li = document.createElement(`li`);
+    $li.innerText = guest;
+    $ul.append($li);
+  });
+  console.log($ul);
+  return $ul;
 }
 
 const PartyDetails = () => {
@@ -142,11 +148,13 @@ const rendor = () => {
     <section id="selected">
       <h2>Party Details</h2>
       <PartyDetails></PartyDetails>
+      <RSVP></RSVP
     </section>
   </main>`;
 
   document.querySelector(`PartyList`).replaceWith(PartyList());
   document.querySelector(`PartyDetails`).replaceWith(PartyDetails());
+  document.querySelector(`RSVP`).replaceWith(RsvpList());
 }
 
 const init = async () => {
