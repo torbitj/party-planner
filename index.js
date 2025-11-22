@@ -91,8 +91,15 @@ const PartyList = () => {
   return $ul;
 }
 
-const RsvpList = () => {;
+const RsvpList = () => {
+  if (!state.selectedParty) {
+    const $p = document.createElement(`p`);
+    return $p;
+  }
+  const $figure = document.createElement(`figure`);
   const $ul = document.createElement(`ul`);
+  const $h4 = document.createElement(`h4`);
+  $h4.innerText = `Confirmed Guests`;
   $ul.id = `rsvp-list`;
   state.rsvpedGuests.forEach((guest) => {
     const $li = document.createElement(`li`);
@@ -100,7 +107,8 @@ const RsvpList = () => {;
     $li.innerText = guest;
     $ul.append($li);
   });
-  return $ul;
+  $figure.append($h4, $ul);
+  return $figure;
 }
 
 const PartyDetails = () => {
