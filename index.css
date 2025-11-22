@@ -58,7 +58,6 @@ figure {
 }
 
 .rsvp-guest {
-  padding-left: 0;
   border: none;
 }
 
@@ -83,7 +82,9 @@ figure {
 }
 
 #rsvp-list {
-  font-size: 1em;
+  padding-left: 1em;
+  list-style: initial;
+  font-size: 0.9em;
 }
 
 @media screen and (max-width: 768px) {
