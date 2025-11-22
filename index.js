@@ -7,17 +7,32 @@ const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/
 
 
 const getParty = async (id) => {
-  const response = await fetch(`${API}/${id}`);
-  const party = await response.json();
-  state.selectedParty = party.data;
-  rendor();
+  try {
+    const response = await fetch(`${API}/${id}`);
+    const party = await response.json();
+    if (!response.ok) {
+      throw new Error();
+    }
+    state.selectedParty = party.data;
+    rendor();
+  } catch (error) {
+    const errorMessage = document.querySelector(`h3`);
+    errorMessage.innerText = `Error in fetching the data`;
+  }
 }
 
 const getPartyList = async () => {
-  const response = await fetch(API);
-  const eventsData = await response.json();
-  const retrievedPartylist = eventsData.data;
-  state.partyList = retrievedPartylist;
+  try {
+    const response = await fetch(API);
+    const eventsData = await response.json();
+    if (!response.ok) {
+      throw new Error();
+    }
+    const retrievedPartylist = eventsData.data;
+    state.partyList = retrievedPartylist;
+  } catch (error) {
+    alert(`Error in fetching the data`)
+  }
 }
 
 const PartyListItem = (party) => {
@@ -100,8 +115,12 @@ const rendor = () => {
 }
 
 const init = async () => {
-  await getPartyList();
-  rendor();
+  try {
+    await getPartyList();
+    rendor();
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 init();
