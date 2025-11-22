@@ -60,7 +60,9 @@ figure {
 #party-list {
   display: grid;
   grid-area: list;
+  grid-template-rows: max-content 1fr;
   row-gap: 2em;
+  align-items: start;
 }
 
 #selected {
