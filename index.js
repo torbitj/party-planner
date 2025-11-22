@@ -58,8 +58,9 @@ const PartyListItem = (party) => {
     $li.style.boxShadow = `5px 5px 5px #214FBA`;
   }
 
-  $li.addEventListener(`click`, (event) => {
-    getParty(party.id);
+  $li.addEventListener(`click`, async (event) => {
+    await getParty(party.id);
+    // getRsvps();
   });
   return $li;
 }
@@ -72,6 +73,10 @@ const PartyList = () => {
   return $ul;
 }
 
+const RsvpList = () => {
+  const $ul = document.createElement(`ul`);
+  
+}
 
 const PartyDetails = () => {
   if (!state.selectedParty) {
