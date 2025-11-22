@@ -91,15 +91,14 @@ const PartyList = () => {
   return $ul;
 }
 
-const RsvpList = () => {
-  console.log(state.rsvpedGuests)
+const RsvpList = () => {;
   const $ul = document.createElement(`ul`);
+  $ul.id = `rsvp-list`;
   state.rsvpedGuests.forEach((guest) => {
     const $li = document.createElement(`li`);
     $li.innerText = guest;
     $ul.append($li);
   });
-  console.log($ul);
   return $ul;
 }
 
