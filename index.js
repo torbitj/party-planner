@@ -3,14 +3,14 @@ const state = {
   selectedParty: null,
 }
 
-const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
+const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT`;
 const PARTIES = `/events`;
 const GUESTS = `/guests`;
 const RSVPS = `/rsvps`;
 
 const getParty = async (id) => {
   try {
-    const response = await fetch(`${API}/${id}`);
+    const response = await fetch(`${API}${PARTIES}/${id}`);
     const party = await response.json();
     if (!response.ok) {
       throw new Error();
@@ -25,7 +25,7 @@ const getParty = async (id) => {
 
 const getPartyList = async () => {
   try {
-    const response = await fetch(API);
+    const response = await fetch(API + PARTIES);
     const eventsData = await response.json();
     if (!response.ok) {
       throw new Error();
