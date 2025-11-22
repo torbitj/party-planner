@@ -19,6 +19,11 @@ div {
   align-items: start;
 }
 
+main {
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+}
+
 ul {
   list-style: none;
 }

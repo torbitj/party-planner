@@ -83,7 +83,7 @@ const rendor = () => {
   $app.innerHTML = `
   <h1>Party Planner</h1>
   <main>
-    <section>
+    <section id="party-list">
       <h2>Upcoming Parties</h2>
       <PartyList></PartyList>
     </section>
