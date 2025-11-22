@@ -74,3 +74,17 @@ figure {
 #party-list {
   text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+    row-gap: 2em;
+    grid-template-areas: 
+    "list"
+    "selected";
+  }
+
+  figure {
+    row-gap: 1em;
+  }
+}
