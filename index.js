@@ -7,17 +7,32 @@ const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/
 
 
 const getParty = async (id) => {
-  const response = await fetch(`${API}/${id}`);
-  const party = await response.json();
-  state.selectedParty = party.data;
-  rendor();
+  try {
+    const response = await fetch(`${API}/${id}`);
+    const party = await response.json();
+    if (!response.ok) {
+      throw new Error();
+    }
+    state.selectedParty = party.data;
+    rendor();
+  } catch (error) {
+    const errorMessage = document.querySelector(`h3`);
+    errorMessage.innerText = `Error in fetching the data`;
+  }
 }
 
 const getPartyList = async () => {
-  const response = await fetch(API);
-  const eventsData = await response.json();
-  const retrievedPartylist = eventsData.data;
-  state.partyList = retrievedPartylist;
+  try {
+    const response = await fetch(API);
+    const eventsData = await response.json();
+    if (!response.ok) {
+      throw new Error();
+    }
+    const retrievedPartylist = eventsData.data;
+    state.partyList = retrievedPartylist;
+  } catch (error) {
+    alert(`Error in fetching the data`)
+  }
 }
 
 const PartyListItem = (party) => {
@@ -29,6 +44,7 @@ const PartyListItem = (party) => {
 
   if (state.selectedParty && state.selectedParty.id === party.id) {
     $li.style.fontWeight = `bolder`;
+    $li.style.boxShadow = `5px 5px 5px #214FBA`;
   }
 
   $li.addEventListener(`click`, (event) => {
@@ -58,7 +74,8 @@ const PartyDetails = () => {
   const $pDescription = document.createElement(`p`);
   const $figure = document.createElement(`figure`);
   const $pDate = document.createElement(`p`);
-  const $pAddress = document.createElement(`address`);
+  const $h4Address = document.createElement(`h4`);
+  const $address = document.createElement(`address`);
   const readableDate = new Date(date).toLocaleString(`en-US`, {
     weekday: `long`,
     year: `numeric`,
@@ -71,8 +88,9 @@ const PartyDetails = () => {
   $h3.innerText = `${name}: ${id}`;
   $pDescription.innerText = description;
   $pDate.innerText = `Date: ${readableDate}`
-  $pAddress.innerText = `Address:\n${location}`;
-  $figure.append($h3, $pDescription, $pDate, $pAddress);
+  $h4Address.innerText = `Address:`
+  $address.innerText = location;
+  $figure.append($h3, $pDescription, $pDate, $h4Address, $address);
 
   return $figure;
 }
@@ -82,7 +100,7 @@ const rendor = () => {
   $app.innerHTML = `
   <h1>Party Planner</h1>
   <main>
-    <section>
+    <section id="party-list">
       <h2>Upcoming Parties</h2>
       <PartyList></PartyList>
     </section>
@@ -97,8 +115,12 @@ const rendor = () => {
 }
 
 const init = async () => {
-  await getPartyList();
-  rendor();
+  try {
+    await getPartyList();
+    rendor();
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 init();
