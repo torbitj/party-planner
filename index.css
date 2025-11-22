@@ -42,6 +42,10 @@ a {
   text-decoration: none;
 }
 
+figure {
+  text-align: start;
+}
+
 #party-list {
   display: grid;
   grid-area: list;
@@ -49,7 +53,10 @@ a {
 }
 
 #selected {
+  display: grid;
   grid-area: selected;
+  grid-template-rows: max-content 1fr;
+  row-gap: 2em;
 }
 
 #selected,
