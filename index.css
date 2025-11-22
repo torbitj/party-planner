@@ -57,10 +57,16 @@ figure {
   font-size: 1.25em;
 }
 
+.rsvp-guest {
+  border: none;
+}
+
 #party-list {
   display: grid;
   grid-area: list;
+  grid-template-rows: max-content 1fr;
   row-gap: 2em;
+  align-items: start;
 }
 
 #selected {
@@ -73,6 +79,12 @@ figure {
 #selected,
 #party-list {
   text-align: center;
+}
+
+#rsvp-list {
+  padding-left: 1em;
+  list-style: initial;
+  font-size: 0.9em;
 }
 
 @media screen and (max-width: 768px) {

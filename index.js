@@ -1,14 +1,18 @@
 const state = {
   partyList: [],
-  selectedParty: null,
+  rsvpList: [],
+  rsvpedGuests: [],
+  selectedParty: null
 }
 
-const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
-
+const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT`;
+const PARTIES = `/events`;
+const GUESTS = `/guests`;
+const RSVPS = `/rsvps`;
 
 const getParty = async (id) => {
   try {
-    const response = await fetch(`${API}/${id}`);
+    const response = await fetch(`${API}${PARTIES}/${id}`);
     const party = await response.json();
     if (!response.ok) {
       throw new Error();
@@ -21,9 +25,27 @@ const getParty = async (id) => {
   }
 }
 
+const getRsvps = async () => {
+  state.rsvpedGuests = [];
+  const response = await fetch(API + GUESTS);
+  const guestData = await response.json();
+  const guests = guestData.data;
+  
+  for (let i = 0; i < guests.length; i++) {
+    const { id } = guests[i];
+    for (let j = 0; j < state.rsvpList.length; j++) {
+      const { guestId, eventId } = state.rsvpList[j];
+      if (id === guestId && state.selectedParty.id === eventId) {
+        state.rsvpedGuests.push(guests[i].name);
+      }
+    }
+  }
+  rendor();
+}
+
 const getPartyList = async () => {
   try {
-    const response = await fetch(API);
+    const response = await fetch(API + PARTIES);
     const eventsData = await response.json();
     if (!response.ok) {
       throw new Error();
@@ -33,6 +55,13 @@ const getPartyList = async () => {
   } catch (error) {
     alert(`Error in fetching the data`)
   }
+}
+
+const getRsvpList = async () => {
+  const response = await fetch(API + RSVPS);
+  const rsvpData = await response.json();
+  const rsvpList = rsvpData.data;
+  state.rsvpList = rsvpList;
 }
 
 const PartyListItem = (party) => {
@@ -47,8 +76,9 @@ const PartyListItem = (party) => {
     $li.style.boxShadow = `5px 5px 5px #214FBA`;
   }
 
-  $li.addEventListener(`click`, (event) => {
-    getParty(party.id);
+  $li.addEventListener(`click`, async (event) => {
+    await getParty(party.id);
+    getRsvps();
   });
   return $li;
 }
@@ -61,6 +91,25 @@ const PartyList = () => {
   return $ul;
 }
 
+const RsvpList = () => {
+  if (!state.selectedParty) {
+    const $p = document.createElement(`p`);
+    return $p;
+  }
+  const $figure = document.createElement(`figure`);
+  const $ul = document.createElement(`ul`);
+  const $h4 = document.createElement(`h4`);
+  $h4.innerText = `Confirmed Guests`;
+  $ul.id = `rsvp-list`;
+  state.rsvpedGuests.forEach((guest) => {
+    const $li = document.createElement(`li`);
+    $li.classList.add(`rsvp-guest`)
+    $li.innerText = guest;
+    $ul.append($li);
+  });
+  $figure.append($h4, $ul);
+  return $figure;
+}
 
 const PartyDetails = () => {
   if (!state.selectedParty) {
@@ -107,16 +156,19 @@ const rendor = () => {
     <section id="selected">
       <h2>Party Details</h2>
       <PartyDetails></PartyDetails>
+      <RSVP></RSVP
     </section>
   </main>`;
 
   document.querySelector(`PartyList`).replaceWith(PartyList());
   document.querySelector(`PartyDetails`).replaceWith(PartyDetails());
+  document.querySelector(`RSVP`).replaceWith(RsvpList());
 }
 
 const init = async () => {
   try {
     await getPartyList();
+    await getRsvpList();
     rendor();
   } catch (error) {
     console.log(error)
