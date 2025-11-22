@@ -1,6 +1,7 @@
 const state = {
   partyList: [],
   rsvpList: [],
+  rsvpedGuests: [],
   selectedParty: null
 }
 
@@ -22,6 +23,13 @@ const getParty = async (id) => {
     const errorMessage = document.querySelector(`h3`);
     errorMessage.innerText = `Error in fetching the data`;
   }
+}
+
+const getRsvps = async () => {
+  const response = await fetch(API + GUESTS);
+  const guestData = await response.json();
+  const guests = guestData.data;
+  console.log(guests);
 }
 
 const getPartyList = async () => {
@@ -60,7 +68,7 @@ const PartyListItem = (party) => {
 
   $li.addEventListener(`click`, async (event) => {
     await getParty(party.id);
-    // getRsvps();
+    getRsvps();
   });
   return $li;
 }
