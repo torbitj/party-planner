@@ -27,12 +27,15 @@ main {
 }
 
 ul {
-  /* display: grid; */
+  display: grid;
+  row-gap: 0.75em;
   list-style: none;
 }
 
 #party-list {
+  display: grid;
   grid-area: list;
+  row-gap: 2em;
 }
 
 #selected {
