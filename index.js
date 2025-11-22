@@ -96,6 +96,7 @@ const RsvpList = () => {;
   $ul.id = `rsvp-list`;
   state.rsvpedGuests.forEach((guest) => {
     const $li = document.createElement(`li`);
+    $li.classList.add(`rsvp-guest`)
     $li.innerText = guest;
     $ul.append($li);
   });
