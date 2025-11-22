@@ -59,7 +59,8 @@ const PartyDetails = () => {
   const $pDescription = document.createElement(`p`);
   const $figure = document.createElement(`figure`);
   const $pDate = document.createElement(`p`);
-  const $pAddress = document.createElement(`address`);
+  const $h4Address = document.createElement(`h4`);
+  const $address = document.createElement(`address`);
   const readableDate = new Date(date).toLocaleString(`en-US`, {
     weekday: `long`,
     year: `numeric`,
@@ -72,8 +73,9 @@ const PartyDetails = () => {
   $h3.innerText = `${name}: ${id}`;
   $pDescription.innerText = description;
   $pDate.innerText = `Date: ${readableDate}`
-  $pAddress.innerText = `Address:\n${location}`;
-  $figure.append($h3, $pDescription, $pDate, $pAddress);
+  $h4Address.innerText = `Address:`
+  $address.innerText = location;
+  $figure.append($h3, $pDescription, $pDate, $h4Address, $address);
 
   return $figure;
 }
