@@ -4,7 +4,9 @@ const state = {
 }
 
 const API = `https://fsa-crud-2aa9294fe819.herokuapp.com/api/2510-FTB-CT-WEB-PT/events`;
-
+const PARTIES = `/events`;
+const GUESTS = `/guests`;
+const RSVPS = `/rsvps`;
 
 const getParty = async (id) => {
   try {
