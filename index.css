@@ -28,8 +28,18 @@ main {
 
 ul {
   display: grid;
-  row-gap: 0.75em;
+  row-gap: 0.25em;
   list-style: none;
+}
+
+li {
+  padding: 0.5em;
+  border: thin solid #214FBA;
+}
+
+a {
+  color: black;
+  text-decoration: none;
 }
 
 #party-list {
@@ -40,4 +50,9 @@ ul {
 
 #selected {
   grid-area: selected;
+}
+
+#selected,
+#party-list {
+  text-align: center;
 }
