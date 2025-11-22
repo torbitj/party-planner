@@ -4,6 +4,7 @@
 }
 
 body {
+  background-color: #c9d7e8;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
