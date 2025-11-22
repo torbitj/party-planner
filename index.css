@@ -19,6 +19,10 @@ div {
   align-items: start;
 }
 
+h1 {
+  text-align: center;
+}
+
 main {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
@@ -35,6 +39,7 @@ ul {
 li {
   padding: 0.5em;
   border: thin solid #214FBA;
+  border-radius: 10px;
 }
 
 a {
@@ -45,6 +50,11 @@ a {
 figure {
   display: grid;
   text-align: start;
+}
+
+ul,
+figure {
+  font-size: 1.25em;
 }
 
 #party-list {
